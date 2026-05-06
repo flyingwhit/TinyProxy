@@ -1,0 +1,4 @@
+proxy
+*.o
+.DS_Store
+free-port.sh
