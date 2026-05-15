@@ -3,14 +3,12 @@
 #include "sbuf.h"
 #include "cache.h"
 
-/* Recommended max cache and object sizes */
 #define MAX_CACHE_SIZE 1049000
 #define MAX_OBJECT_SIZE 102400
 #define NBLOCK 10
 #define NTHREADS 128 
 #define SBUFSIZE 1024
 
-/* You won't lose style points for including this long line in your code */
 static const char *user_agent_hdr = "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20120305 Firefox/10.0.3\r\n";
 
 typedef char string[MAXLINE];
@@ -68,7 +66,6 @@ void* thread(void *vargp) {
     pthread_detach(pthread_self());
 
     while (1) {
-        /* Worker threads sleep here until the accept loop gives them a client. */
         int connfd = sbuf_remove(&fdbuf);
         do_request(connfd);
         close(connfd);    
@@ -111,10 +108,7 @@ void do_get(int clientfd, rio_t* rio, string url) {
     char object_buf[MAX_OBJECT_SIZE];
     int object_size = 0;
 
-    /*
-     * The port is part of the cache key because two local test servers can use
-     * the same host/path while serving different content on different ports.
-     */
+    
     snprintf(idx, MAXLINE, "%s:%s %s", url_info.host, url_info.port, url_info.path);
     if (cache_get(&cm, idx, object_buf, &object_size)) {
         if (rio_writen(clientfd, object_buf, object_size) != object_size) {
@@ -159,7 +153,6 @@ void do_get(int clientfd, rio_t* rio, string url) {
                 close(connfd);
                 return;
             }   
-            /* Responses are binary-safe: copy exactly respcur bytes. */
             if (total_size + respcur <= MAX_OBJECT_SIZE) {
                 memcpy(object_buf + total_size, buf, respcur);
                 total_size += respcur;
