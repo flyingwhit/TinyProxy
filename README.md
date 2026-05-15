@@ -4,23 +4,22 @@
 TinyProxy是基于CS:APP Proxy Lab扩展实现的http多线程代理服务器
 
 ## 实现功能
-HTTP1.0转发
-并发连接处理
-请求头规范化
+HTTP1.0转发   
+
+并发连接处理   
+
+请求头规范化    
+
 LRU缓存淘汰策略
 
 ## 架构图
 
-![alt text](image.png)
+![alt text](images/model.png)
 
 
 ## 运行测试
 
-先安装docker
-```bash
-
-```   
-启动并挂载当前目录到容器
+启动docker并挂载当前目录到容器
 ```bash
 docker run -it --rm -v "$(pwd)":/workspace -w /workspace ubuntu:20.04 /bin/bash
 ```   
@@ -53,6 +52,6 @@ curl -v --proxy http://localhost:7777 http://localhost:7778
 ./driver.sh
 ```
 
-
+![alt text](images/producer-consumer-model.png)
 
 
