@@ -25,6 +25,9 @@ proxy.o: proxy.c csapp.h sbuf.h cache.h
 proxy: proxy.o csapp.o sbuf.o cache.o
 	$(CC) $(CFLAGS) proxy.o csapp.o sbuf.o cache.o -o proxy $(LDFLAGS)
 
+test: proxy
+	./tests/run_proxy_tests.sh
+
 subf: 
 # Creates a tarball in ../proxylab-handin.tar that you can then
 # hand in. DO NOT MODIFY THIS!
@@ -33,4 +36,3 @@ handin:
 
 clean:
 	rm -f *~ *.o proxy core *.tar *.zip *.gzip *.bzip *.gz
-
